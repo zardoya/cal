@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+<link rel="stylesheet" href="https://s.yimg.com/cv/ae/default/151031/add-ons.css">
+<!-- The CSS package above applies Google styling to buttons and other elements. -->
+
+<style>
+.branding-below {
+  bottom: 56px;
+  top: 0;
+}
+
+fieldset{
+margin-left: 5px;
+margin-right: 5px;
+}
+
+#uploadMessage{
+position:absolute;
+bottom:0px;
+width:100%;
+border: 1px solid #CCC;
+padding: 10px;
+color: #CCC;
+}
+
+#uploadMessage.uploading{
+background-color:#FF6600;
+color: white;
+}
+
+#uploadMessage.uploaded{
+background-color:green;
+color: white;
+}
+
+span.textMin{
+    font: 11px bold arial, sans-serif;
+    padding-bottom:5px;
+}
+
+.branding-text {
+  left: 7px;
+  position: relative;
+  top: 3px;
+}
+
+.col-contain {
+  overflow: hidden;
+}
+
+.col-one {
+  float: left;
+  width: 50%;
+}
+
+.logo {
+  vertical-align: middle;
+}
+
+.radio-spacer {
+  height: 20px;
+}
+
+.width-100 {
+  width: 100%;
+}
+.script-application-sidebar-header {
+background: #270069 !important;
+border: 1px solid #270069 !important;
+color: #fff;
+font-size: 13px;
+font-weight: bold;
+height: 15px;
+padding: 10px 0 10px 12px;
+position: relative;
+}
+</style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+</script>
+
+<center><img src="https://www.eff.org/files/2015/06/16/yahoo400.png" width="200"></center>
+    <fieldset>
+<legend>Salesforce data upload</legend>
+<p class="textMin">Select ACT Producer</p>
+
+<select id="adtech">
+   <option value="Ulisses">Ulisses Alves Machado</option>
+   <option value="Ehab">Ehab Haddad</option>
+   <option value="Graziano">Graziano Muscas</option>
+   <option value="Oksana">Oksana Pankeviciene</option>
+   <option value="Michael">Michael Parry</option>
+   <option value="Mariano">Mariano Zardoya</option>
+</select> 
+<br>
+
+        <p class="textMin">Select CSV file</p>
+            <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
+<div style="padding-top:20px;padding-bottom:10px;">
+<input type="submit" value="Upload file to spreadsheet"> 
+</div>
+   </fieldset>
+<br>
+<hr>   
+    <fieldset>  
+<legend>Calendar Setup</legend>
+<p class="textMin">After uploading data from salesforce onto the sheet click here to avoid duplicating events in the calendar</p>
+<input id="dups" type="button" value="Remove duplicates">
+<p class="textMin">After removing duplicates click here to upload the events to the calendar</p>
+<input id="calendar" type="button" value="Upload to calendar"> 
+   </fieldset>
+<div id='uploadMessage' align='center'>UPLOAD STATUS</div>
+   <script>
+function onSuccess(numUnread) {
+        $("#uploadMessage").replaceWith("<div id='uploadMessage' align='center'>UPLOADED</div>");
+        $("#uploadMessage").addClass("uploaded");
+      }
+   $( "#dups" ).click(function() {
+  alert( "Handler for .click() called." );
+});
+   $( "#calendar" ).click(function() {
+  google.script.run.withSuccessHandler(onSuccess).pushToCalendar( $("#adtech").val());
+        $("#uploadMessage").replaceWith("<div id='uploadMessage' align='center'>UPLOADING</div>");
+  $("#uploadMessage").addClass("uploading");
+});
+   </script>
+
+  </body>
+</html>
+
+
